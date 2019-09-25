@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+        .wrapper {
+            margin:100px 600px;
+        }
+        input {
+            width: 400px;
+            height: 34px;
+            
+        }
+        ul {
+            display: none;
+            border: 1px solid #ccc;
+            width: 400px;
+        }
+        
+        li {
+            margin-bottom: 3px;
+            background-color: #eee;
+        }
+        li:hover{
+            background-color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <input type="text">
+        <ul></ul>
+    </div>
+    <script>
+        var oInput = document.getElementsByTagName('input')[0];
+        var oUl = document.getElementsByTagName('ul')[0];
+
+
+        oInput.oninput = function () {
+            var value = this.value;
+            // console.log(value);
+            var oScript = document.createElement('script');
+            oScript.src = 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=' + value + '&cb=ds';
+            document.body.appendChild(oScript);
+            // 回调函数执行完删除oScript;
+            document.body.removeChild(oScript);
+        }
+
+        function ds(data) {
+                console.log(data)
+                var s = data.s;
+                var str = '';
+                if (s.length != 0) {
+                    s.forEach(function (ele, index) {
+                        // console.log(ele);
+                       
+                        str += '<a href=https://sp0.baidu.com/s?wd=' + ele +'><li>' + ele + '</li></a>'
+
+                    })
+                    oUl.innerHTML = str;
+                    console.log(str);
+                    oUl.style.display = 'block';
+
+                }else {
+                    oUl.style.display = 'none';
+                }
+            }
+    </script>
+</body>
+
+</html>
+
